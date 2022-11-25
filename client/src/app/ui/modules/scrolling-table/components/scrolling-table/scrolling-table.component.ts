@@ -277,6 +277,7 @@ export class ScrollingTableComponent<T extends Partial<Mutable<Identifiable>>>
     private refresh(): void {
         this._dataSource.next(this._source);
         this.cd.markForCheck();
+        //test
         this.scrollViewport?.checkViewportSize();
     }
 }
