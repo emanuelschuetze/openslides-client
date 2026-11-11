@@ -48,11 +48,17 @@ export class ParticipantCsvExportService {
     public export(participants: ViewUser[]): void {
         this.csvExport.export(
             participants,
-            participantColumns.map(key => {
+            participantColumns.concat(`vote_delegated_to`).map(key => {
                 if (key === `locked_out`) {
                     return {
                         label: `locked_out`,
                         map: user => (user.is_locked_out ? `1` : ``)
+                    } as CsvColumnDefinitionMap<ViewUser>;
+                }
+                if (key === `vote_delegated_to`) {
+                    return {
+                        label: `vote_delegated_to`,
+                        map: user => user.vote_delegated_to()?.short_name ?? ``
                     } as CsvColumnDefinitionMap<ViewUser>;
                 }
                 return {
